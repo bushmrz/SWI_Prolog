@@ -52,3 +52,15 @@ parent(zhdana,zlatomir).
 father(X,Y) :- man(X), parent(X,Y).
 child(X,Y) :- (man(X)|woman(X)),parent(Y,X).
 fatherX(X) :- man(Y), parent(Y,X), write(Y),nl,fail.
+
+%12
+sister(X,Y) :- woman(X), parent(Z,X), parent(Z,Y), man(Z), not(X=Y).
+sisters(X) :- parent(Z,X), parent(Z,Y), woman(Y),woman(Z), not(X=Y), write(Y), nl, fail.
+
+%13
+grand_ma(X,Y) :- woman(X), parent(X,Z), parent(Z,Y).
+grand_mas(X) :- parent(Y,Z),parent(Z,X), woman(Y), write(Y), write(' grm '), write(X).
+
+%14
+grand_ma_and_son(X,Y) :- (woman(X), parent(X,Z), parent(Z,Y), man(Y), write(X), write(' grm '), write(Y)) | (man(X), parent(Y,Z), parent(Z,X), woman(Y), write(X), write(' grn s '), write(Y)).
+
