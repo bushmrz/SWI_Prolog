@@ -90,3 +90,13 @@ countDig(X,Y,Count):- X>0,!,
     countDig(X1,Y,Count1).
 countDig(_,Y,Z):- Y is Z.
 
+%19
+fib(0,1):-!.
+fib(1,1):-!.
+fib(N,X):-N>1,
+    N1 is N-1, N2 is N-2,
+    fib(N1,X1),fib(N2,X2),
+    X is X1+X2.
+
+
+
