@@ -76,4 +76,7 @@ mult_digit_D(X,Y,Z):- X > 0,!,
 mult_digit_D(_,Y,Z):- Y is Z.
 
 
-
+%17
+couner(0,0):-!.
+couner(X,Y):- X1 is X div 10, X2 is X mod 10,
+    couner(X1,Y1), (X2 > 3, X2 mod 2 =:= 1 ->  Y is Y1+1; Y is Y1).
