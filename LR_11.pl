@@ -90,6 +90,8 @@ countDig(X,Y,Count):- X>0,!,
     countDig(X1,Y,Count1).
 countDig(_,Y,Z):- Y is Z.
 
+% =/= не экв-но, =:= - экв-но
+
 %19
 fib(0,1):-!.
 fib(1,1):-!.
@@ -98,5 +100,13 @@ fib(N,X):-N>1,
     fib(N1,X1),fib(N2,X2),
     X is X1+X2.
 
+%20
+fib_D(N,X):- fib_D(1,1,N,X,0),!.
+fib_D(F1,F2,N,X,Count):- Count < N,!,
+    F11 is F2,
+    F21 is F1+F2,
+    Count1 is Count+1,
+    fib_D(F11,F21,N,X,Count1).
+fib_D(_,F3,_,X,_):- X is F3.
 
 
