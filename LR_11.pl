@@ -80,3 +80,13 @@ mult_digit_D(_,Y,Z):- Y is Z.
 couner(0,0):-!.
 couner(X,Y):- X1 is X div 10, X2 is X mod 10,
     couner(X1,Y1), (X2 > 3, X2 mod 2 =:= 1 ->  Y is Y1+1; Y is Y1).
+
+%18
+countDig(X,Y):-  countDig(X,Y,0),!.
+countDig(X,Y,Count):- X>0,!,
+    X1 is X div 10,
+    P is X mod 10,
+    (P>3,P mod 2 =\= 0 -> Count1 is Count + 1; Count1 is Count),
+    countDig(X1,Y,Count1).
+countDig(_,Y,Z):- Y is Z.
+
