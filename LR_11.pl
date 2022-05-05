@@ -50,7 +50,6 @@ parent(zhdana,zlatomir).
 
 %11
 father(X,Y) :- man(X), parent(X,Y).
-child(X,Y) :- (man(X)|woman(X)),parent(Y,X).
 fatherX(X) :- man(Y), parent(Y,X), write(Y),nl,fail.
 
 %12
@@ -70,11 +69,11 @@ mult_digit(0,1):-!.
 mult_digit(X,Y):- X1 is X div 10, P is X mod 10, mult_digit(X1,Y1), Y is Y1*P.
 
 %16
-mult(X,Y):- X>0,!,mult_digit(X,Y,1),!.
-mult_digit(X,Y,Z):- X > 0,!,
+multR(X,Y):- X>0,!,mult_digit_D(X,Y,1),!.
+mult_digit_D(X,Y,Z):- X > 0,!,
     X1 is X div 10, Z1 is Z*(X mod 10),
-    mult_digit(X1,Y,Z1).
-mult_digit(_,Y,Z):- Y is Z.
+    mult_digit_D(X1,Y,Z1).
+mult_digit_D(_,Y,Z):- Y is Z.
 
 
 
