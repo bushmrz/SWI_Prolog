@@ -64,3 +64,9 @@ grand_mas(X) :- parent(Y,Z),parent(Z,X), woman(Y), write(Y), write(' grm '), wri
 %14
 grand_ma_and_son(X,Y) :- (woman(X), parent(X,Z), parent(Z,Y), man(Y), write(X), write(' grm '), write(Y)) | (man(X), parent(Y,Z), parent(Z,X), woman(Y), write(X), write(' grn s '), write(Y)).
 
+%15
+mult(X):- X>0,mult_digit(X,1),!.
+mult_digit(0,1):-!.
+mult_digit(X,Y):- X1 is X div 10, P is X mod 10, mult_digit(X1,Y1), Y is Y1*P.
+
+
