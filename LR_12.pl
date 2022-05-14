@@ -37,3 +37,31 @@ multDiv(1,_,1,_):-!.
 multDiv(X,Y,S,SD):- Y mod X =:= 0 -> X1 is X-1,
     multDiv(X1,Y,S1,SD),sumDig(X,H),(H<SD -> S is S1*X; S is S1);
     Y mod X =\=0 -> X1 is X-1, multDiv(X1,Y,S1,SD), S is S1.
+    
+    
+%3
+%Пусть d ( n ) определяется как сумма собственных делителей n
+%(чисел меньше n, которые делятся равномерно на n ).
+%Если d ( a ) = b и d ( b ) = a ,
+%где a ≠ b , то a и b являются дружественной парой,
+%и каждый из a и b называется дружным числом.
+% Например, правильными делителями 220 являются
+%1, 2, 4, 5, 10, 11, 20, 22, 44,55 и 110;
+%следовательно, d (220) = 284 Правильными делителями 284
+%являются 1, 2, 4, 71 и 142; поэтому d (284) = 220
+%Найдите количество всех пар дружных чисел до 10000
+%Задача должна быть решена без использования списков.
+
+sumDel(X,S):-isDel(X,X,S,0).
+isDel(_,0,_,_):-!.
+isDel(X,I,S,K):- I>1, not(I is X), X mod I =:= 0, !,  I1 is I-1,
+    K1 = K+I, isDel(X,I1,S,K1).
+isDel(X,I,S,K):- I>1,!,I1 is I-1, isDel(X,I1,S,K).
+isDel(_,_,S,K):- S is K.
+
+countFriend(Res):-countFriend(10,10,Res,0).
+countFriend(0,0,Res,Res):-!.
+countFriend(X,0,Res,NowRes):-X1 is X-1,countFriend(X1,X1,Res,NowRes).
+countFriend(X,Y,Res,NowRes):-Y1 is Y-1, sumDel(X,DelX),sumDel(Y,DelY),
+    (X is Y ,NewRes is NowRes;(DelX is DelY, NewRes is NowRes+1;NewRes is NowRes)), countFriend(X,Y1,Res,NewRes).
+
