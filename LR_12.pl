@@ -65,3 +65,17 @@ countFriend(X,0,Res,NowRes):-X1 is X-1,countFriend(X1,X1,Res,NowRes).
 countFriend(X,Y,Res,NowRes):-Y1 is Y-1, sumDel(X,DelX),sumDel(Y,DelY),
     (X is Y ,NewRes is NowRes;(DelX is DelY, NewRes is NowRes+1;NewRes is NowRes)), countFriend(X,Y1,Res,NewRes).
 
+%4
+%Построить предикат, получающий длину списка.
+
+length_list([],0):-!.
+length_list([Head|Tail],N):-length_list(Tail,N1), N is 1+N1.
+
+read_list(0,[]):-!.
+read_list(N,[Head|Tail]):-read(Head),
+    N1 is N-1, read_list(N1,Tail).
+
+write_list([]):-!.
+write_list([Head|Tail]):-write(Head),nl,write_list(Tail).
+
+
