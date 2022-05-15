@@ -78,4 +78,23 @@ read_list(N,[Head|Tail]):-read(Head),
 write_list([]):-!.
 write_list([Head|Tail]):-write(Head),nl,write_list(Tail).
 
+%5(15). Дан целочисленный массив.
+%Необходимо найти количество элементов,
+%расположенных после последнего максимального.
+
+%list = [2,3,4,7,9,4,3,9,2,3,1,0] , answ: 4
+%
+
+indexM([Head|Tail],I):-indexM(Tail,I,0,1,Head).
+indexM([],I,I,_,_):-!.
+indexM([H|T],I,IM,INow,M):-
+    (   H>=M, NewIM is INow, NewM is H;
+    NewIM is IM, NewM is M),
+    NewIN is INow+1,
+    indexM(T,I,NewIM,NewIN,NewM).
+
+task15:- write('List: '), nl, read(N), read_list(N,List),
+    write('Количество эл-в после последнего максимального: '),
+    length_list(List,Lght), indexM(List,I),
+    X is Lght-I-1, write(X),!.
 
