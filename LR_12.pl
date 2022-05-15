@@ -98,3 +98,21 @@ task15:- write('List: '), nl, read(N), read_list(N,List),
     length_list(List,Lght), indexM(List,I),
     X is Lght-I-1, write(X),!.
 
+%6(16). Дан целочисленный массив.
+%Необходимо найти индекс минимального элемента.
+
+indexMin([H|T],I):-indexMin(T,I,0,1,H).
+indexMin([],I,I,_,_):-!.
+indexMin([H|T],I,INow,IMin,Min):-
+    (   H<Min,
+        Min1 is H, IMin1 is INow;
+    Min1 is Min, IMin1 is IMin),
+    INow1 is INow + 1,
+    indexMin(T,I,INow1,IMin1,Min1).
+
+%List: 10. [5. 3. 2. 7. 8. 2. 1. 9. -1. 12. ] Min: 9
+
+task16:- write('List: '), nl, read(N), read_list(N,List),
+    write('Min: '),
+    indexM(List,I), write(I),!.
+
