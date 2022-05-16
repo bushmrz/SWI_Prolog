@@ -151,3 +151,16 @@ checkLocMin(_,S,[Next|T],I,INow):-NewI is INow+1, checkLocMin(S,Next,T,I,NewI).
 task18:- write('List: '), read(Count),read_list(Count,List),
     write('Ind: '), read(I),
         write("Is local min: "),checkMin(List,I),!.
+        
+%9(19).Дан целочисленный массив и интервал a..b.
+%Необходимо найти максимальный из элементов в этом интервале.
+
+findMax([H|T],IS,IE,M):-findMax(T,IS,IE,M,H,0).
+findMax(_,_,IE,M,M,IE):-!.
+findMax([H|T],IS,IE,M,_,_):- INext is IS+1, findMax(T,IS,IE,M,H,INext).
+findMax([H|T],IS,IE,M,MaxE,INow):- (H>MaxE, MaxE1 is H; MaxE1 is MaxE),
+    INow1 is INow+1, findMax(T,IS,IE,M,MaxE1,INow1).
+
+task19:- write('List: '), read(Count),read_list(Count,List),
+    write('Ind 1,2: '), read(I1), read(I2),
+        write("Max: "),findMax(List,I1,I2,M), write(' '), write(M),!.
