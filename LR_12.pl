@@ -131,9 +131,23 @@ moveBeforeMin([H|T],List,IMin,INow,NowList):-
     NewI is INow+1, concat1(NowList,[H],NewList),
     moveBeforeMin(T,List,IMin,NewI,NewList).
 
-task17:- write("List: "), read(Count),read_list(Count,List),
+task17:- write('List: '), read(Count),read_list(Count,List),
     moveBeforeMin(List,NewList),
-    write("New List: "),write_list(NewList),
+    write('New List: '),write_list(NewList),
     nl, indexMin(List,I), write(I),!.
 
+% 8(18).Дан целочисленный массив и натуральный индекс (число, меньшее
+% размера массива). Необходимо определить является ли элемент по
+% указанному индексу локальным минимумом.
 
+checkMin([F,S|_],0):-F<S,!.
+checkMin([F,S|T],I):-checkLocMin(F,S,T,I,1).
+checkLocMin(F,S,[],I,I):-S<F,!.
+checkLocMin(F,S,[T|_],I,I):-S<F,S<T,!.
+checkLocMin(_,S,[Next|T],I,INow):-NewI is INow+1, checkLocMin(S,Next,T,I,NewI).
+
+%List: 7. [5. 6. 2. 1. 4. 5. 6] Ind: 4. Is local min: false.
+%List: 7. [5. 6. 2. 1. 4. 5. 6] Ind: 3. Is local min: true.
+task18:- write('List: '), read(Count),read_list(Count,List),
+    write('Ind: '), read(I),
+        write("Is local min: "),checkMin(List,I),!.
