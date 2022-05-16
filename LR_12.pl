@@ -164,3 +164,30 @@ findMax([H|T],IS,IE,M,MaxE,INow):- (H>MaxE, MaxE1 is H; MaxE1 is MaxE),
 task19:- write('List: '), read(Count),read_list(Count,List),
     write('Ind 1,2: '), read(I1), read(I2),
         write("Max: "),findMax(List,I1,I2,M), write(' '), write(M),!.
+        
+%10(20). Дан целочисленный массив.
+% Необходимо найти элементы, расположенные между первым и последним максимальным.
+
+pairIMax([H|T],(I1,I2)):-indMaxPair(T,(I1,I2),(0,0),H,1).
+
+indMaxPair([],(IF,IL),(IF,IL),_,_):-!.
+
+indMaxPair([H|T],(First,Last),(I1,I2),El,IndNow):-
+    (H>El,IF is IndNow,IL is IndNow,NewEl is H;
+    H is El, IL is IndNow, IF is I1,NewEl is H;
+    IF is I1, IL is I2,NewEl is El),
+    NextInd is IndNow+1,
+    indMaxPair(T,(First,Last),(IF,IL),NewEl,NextInd).
+
+findBetwMax(List,List2):-  pairIMax(List,(I1,I2)),
+    findBetwMax(List,(I1,I2),List2,0,[]),!.
+
+findBetwMax(_,(_,I2),List2,I2,List2):-!.
+findBetwMax([H|T],(I1,I2),List2,NowInd,NowList):-
+    NewInd is NowInd+1,
+    (NowInd>I1,concat1(NowList,[H],Res),findBetwMax(T,(I1,I2),List2,NewInd,Res);
+    findBetwMax(T,(I1,I2),List2,NewInd,NowList)).
+
+task20:- write('List: '), read(Count),read_list(Count,List),
+         findBetwMax(List,List2), write('New list: '),
+         write_list(List2),!.
